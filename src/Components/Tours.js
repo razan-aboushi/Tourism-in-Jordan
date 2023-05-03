@@ -8,9 +8,9 @@ import husseinGardens from "./images/Al-Hussein-Public-Parks.jpg";
 
 
 // Here we create the function to show the details that relate to each tourism place
-function TourDetails(props)
+function TourDetails({ place })
  {
-  const { place } = props;
+ 
   const detailsAboutPlace = {
     'Petra': 'Petra is a famous archaeological site in Jordan\'s southwestern desert.The city of Petra, capital of the Nabataean Arabs, is one of the most famous archaeological sites in the world, it is Located 240 km south of the capital Amman and 120 km north of the red sea town of Aqaba',
     'Wadi Rum': 'Wadi Rum is a protected desert wilderness in southern Jordan. Wadi Rum Desert is famed for its link to T.E. Lawrence the original “Lawrence of Arabia”. Along with Prince Feisal bin Al-Hussein, he made his base here during the Arab Revolt of 1917-1918. At the center of Wadi Rum village is the Desert Police fort. Built in 1932 the village remained nothing more than a cluster of tents until the 1980s.',
@@ -28,6 +28,7 @@ function TourDetails(props)
     </div>
   );
 }
+
 
 
 // Tours function that contains the tourism places information and display them as a cards by using map to display the name and image of the place.
@@ -79,7 +80,7 @@ function Tours()
     }
   ];
 
-  const [tourismPlaces, setTourismPlaces] = useState(places);
+  const [tourismPlaces] = useState(places);
   const [selectedPlace, setSelectedPlace] = useState(null);
 
   function handleClick(place)
@@ -87,12 +88,12 @@ function Tours()
     setSelectedPlace(place);
   }
 
-  const filteredPlaces = selectedPlace ? [selectedPlace] : tourismPlaces; //It also displays the info and price properties of the place object only if there is a selectedPlace.
+  const filterPlaces = selectedPlace ? [selectedPlace] : tourismPlaces; //It displays the info and price properties of the place object only if there is a selectedPlace.
 
   return (
     <div className='row text-center'>
       <div className='card-container d-flex justify-content-center flex-wrap'>
-        {filteredPlaces.map((place) => (
+        {filterPlaces.map((place) => (
           <div className='card mb-4 mx-2' key={place.id} onClick={() => handleClick(place)}>
             <div className='card-header'>{place.name}</div>
             <div className='card-body'>
@@ -108,7 +109,7 @@ function Tours()
         ))}
       </div>
       <div className="mt-5">
-        {selectedPlace && <TourDetails place={selectedPlace} />}
+        {selectedPlace && <TourDetails place={selectedPlace}/>}
       </div>
     </div>
   );
